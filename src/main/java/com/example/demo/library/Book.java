@@ -1,20 +1,38 @@
 package com.example.demo.library;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table
 public class Book {
 
-    private int id;
+    @Id
+    @SequenceGenerator(
+            name = "book_sequence",
+            sequenceName = "book_sequence",
+            allocationSize = 1
+    )
+
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "book_sequence"
+    )
+    @Column(name = "id")
+    private Long id;
     private int isbn;
     private String title;
     private String status;
+
+    @OneToMany(targetEntity=Author.class, cascade = CascadeType.ALL)
+    @JoinColumn(name="ba_fk", referencedColumnName = "id")
     private List<Author> authors;
 
     //constructor
     public Book(){
 
     }
-    public Book(int id, int isbn, String title, String status, List<Author> authors) {
+    public Book(Long id, int isbn, String title, String status, List<Author> authors) {
         this.id = id;
         this.isbn = isbn;
         this.title = title;
@@ -34,7 +52,7 @@ public class Book {
     }
 
     //getters
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -74,5 +92,16 @@ public class Book {
 
     public void removeAuthor(Author author){
         authors.remove(author);
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", isbn=" + isbn +
+                ", title='" + title + '\'' +
+                ", status='" + status + '\'' +
+                ", authors=" + authors.toString() +
+                '}';
     }
 }

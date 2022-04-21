@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 public class Borrow extends Book{
 
-    private int id;
-    private int BookID;
+    private Long id;
+    private Long BookID;
     private String username;
     private LocalDate DateTime;
 
