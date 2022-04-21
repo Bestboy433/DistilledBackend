@@ -17,15 +17,15 @@ public class BookConfig {
             Author jk = new Author("J.K Rowling");
 
 
-            Book h = new Book(2345,
+            Book h = new Book(2345L,
                     "Hobit",
                     "Available",
                     List.of(farruk,jarrad));
 
-            Book hp = new Book(2365,
+            Book hp = new Book(2365L,
                     "Harry Potter",
                     "Available",
-                    List.of(jk));
+                    List.of(jk,farruk));
 
             repository.saveAll(
                     List.of(h,hp)

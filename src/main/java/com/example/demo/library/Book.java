@@ -20,32 +20,38 @@ public class Book {
     )
     @Column(name = "id")
     private Long id;
-    private int isbn;
+    private Long isbn;
     private String title;
     private String status;
 
-    @OneToMany(targetEntity=Author.class, cascade = CascadeType.ALL)
-    @JoinColumn(name="ba_fk", referencedColumnName = "id")
+    //Don't forget, one author can write many books.
+
+    @ManyToMany(targetEntity=Author.class, cascade = CascadeType.ALL)
+    @JoinTable(name = "author_book",
+            joinColumns = {@JoinColumn(name="id")},
+            inverseJoinColumns = {@JoinColumn(name="aid")}
+
+    )
     private List<Author> authors;
 
     //constructor
     public Book(){
 
     }
-    public Book(Long id, int isbn, String title, String status, List<Author> authors) {
+    public Book(Long id, Long isbn, String title, String status, List<Author> authors) {
         this.id = id;
         this.isbn = isbn;
         this.title = title;
         this.status = status;
         this.authors = authors;
     }
-    public Book(int isbn, String title, String status, List<Author> authors) {
+    public Book(Long isbn, String title, String status, List<Author> authors) {
         this.isbn = isbn;
         this.title = title;
         this.status = status;
         this.authors = authors;
     }
-    public Book(int isbn, String title, List<Author> authors) {
+    public Book(Long isbn, String title, List<Author> authors) {
         this.isbn = isbn;
         this.title = title;
         this.authors = authors;
@@ -56,7 +62,7 @@ public class Book {
         return id;
     }
 
-    public int getIsbn() {
+    public Long getIsbn() {
         return isbn;
     }
 
