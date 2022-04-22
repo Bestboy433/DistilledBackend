@@ -1,0 +1,12 @@
+      ----- HOW TO SETUP THIS API FOR USE ----
+      
+      Go into the "application.properties" file change the datasource url, username and password to your credentials for your postgreSQL database.
+      
+      ------- Additional Information ------
+      
+      There are four tables, book, book_author, author and borrow. The book_author table links books with authors, the other tables just hold information about objects   of that class.
+      
+      You can make requests for all the features to the endpoints specified in the "Controller" type classes. (e.g BookController)
+     
+      
+      
