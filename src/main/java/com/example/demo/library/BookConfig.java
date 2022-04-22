@@ -19,12 +19,10 @@ public class BookConfig {
 
             Book h = new Book(2345L,
                     "Hobit",
-                    "Available",
                     List.of(farruk,jarrad));
 
             Book hp = new Book(2365L,
                     "Harry Potter",
-                    "Available",
                     List.of(jk,farruk));
 
             repository.saveAll(

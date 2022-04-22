@@ -1,6 +1,7 @@
 package com.example.demo.library;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,4 +22,9 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     //This Query makes use of the author_book table very easily! It searches books by author name
     List<Book> findByAuthors_Name(String authorName);
+
+    Book getBookById(Long bookId);
+
+    Long deleteBookById(Long bookId);
+
 }

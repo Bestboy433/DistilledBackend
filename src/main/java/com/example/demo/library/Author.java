@@ -15,7 +15,7 @@ public class Author {
     private String name;
 
     //list of books written by the author
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "authors")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "authors")
     private List<Book> books;
 
     //constructor

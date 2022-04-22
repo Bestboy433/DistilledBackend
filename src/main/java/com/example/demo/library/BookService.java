@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,13 +37,14 @@ public class BookService {
         System.out.println(book);
     }
 
+    @Transactional
     public void deleteBook(Long bookId) {
         Boolean exists = bookRepository.existsById(bookId);
         if(!exists){
             throw new IllegalStateException("Book with id " + bookId + " does not exist");
         }
         else{
-            bookRepository.deleteById(bookId);
+            bookRepository.deleteBookById(bookId);
         }
     }
 
@@ -69,5 +71,40 @@ public class BookService {
             throw new IllegalStateException("Books written by '"+name+"' do not exist");
         }
         return options;
+    }
+
+    public void addNewBorrow(Long id, String username) {
+        //Check if the book exists, then create a borrow object
+        Boolean exists = bookRepository.existsById(id);
+
+        if(!exists){
+            throw new IllegalStateException("A book with id: " +id+ " does not exist");
+        }
+        else{
+            Borrow borrow1 = new Borrow(bookRepository.getById(id), username);
+        }
+    }
+
+    @Transactional
+    public void updateStatus(Book book) {
+        //update book status
+        Book backup = book;
+        deleteBook(book.getId());
+        if(backup.getStatus().equals("Available")){
+            backup.setStatus("Borrowed");
+        }else{
+            backup.setStatus("Available");
+        }
+        bookRepository.save(backup);
+        System.out.println(backup);
+
+    }
+
+    public Book getBookById(Long bookID) {
+        Boolean exists = bookRepository.existsById(bookID);
+        if(!exists){
+            throw new IllegalStateException("The book with id "+bookID+" does not exist and cannot be borrowed.");
+        }
+        return bookRepository.getBookById(bookID);
     }
 }

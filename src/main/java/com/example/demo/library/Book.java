@@ -22,11 +22,11 @@ public class Book {
     private Long id;
     private Long isbn;
     private String title;
-    private String status;
+    private String status = "Available";
 
     //Don't forget, one author can write many books.
 
-    @ManyToMany(targetEntity=Author.class, cascade = CascadeType.ALL)
+    @ManyToMany(targetEntity=Author.class, cascade = CascadeType.PERSIST)
     @JoinTable(name = "author_book",
             joinColumns = {@JoinColumn(name="id")},
             inverseJoinColumns = {@JoinColumn(name="aid")}
@@ -38,19 +38,13 @@ public class Book {
     public Book(){
 
     }
-    public Book(Long id, Long isbn, String title, String status, List<Author> authors) {
+    public Book(Long id, Long isbn, String title, List<Author> authors) {
         this.id = id;
         this.isbn = isbn;
         this.title = title;
-        this.status = status;
         this.authors = authors;
     }
-    public Book(Long isbn, String title, String status, List<Author> authors) {
-        this.isbn = isbn;
-        this.title = title;
-        this.status = status;
-        this.authors = authors;
-    }
+
     public Book(Long isbn, String title, List<Author> authors) {
         this.isbn = isbn;
         this.title = title;

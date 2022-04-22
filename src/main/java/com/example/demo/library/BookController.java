@@ -52,4 +52,11 @@ public class BookController {
     public void deleteBook(@PathVariable("bookId") Long bookId){
         bookService.deleteBook(bookId);
     }
+
+    //Update a book status
+    @PutMapping(path = "/updateStatus")
+    public void updateStatus(@RequestBody Book book){
+        bookService.updateStatus(book);
+    }
+
 }
